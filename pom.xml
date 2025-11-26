@@ -125,6 +125,8 @@
         <extensions>true</extensions>
         <configuration>
           <publishingServerId>central</publishingServerId>
+          <username>${env.CENTRAL_USERNAME}</username>
+          <password>${env.CENTRAL_PASSWORD}</password>
           <autoPublish>true</autoPublish>
         </configuration>
       </plugin>
