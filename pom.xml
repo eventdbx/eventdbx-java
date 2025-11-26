@@ -5,7 +5,7 @@
 
   <groupId>com.eventdbx</groupId>
   <artifactId>eventdbx-java</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.1.1</version>
   <name>EventDBX Java Client</name>
   <description>Java client library for EventDBX.</description>
   <url>https://docs.eventdbx.com/client-sdks/java</url>
