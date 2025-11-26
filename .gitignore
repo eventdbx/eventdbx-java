@@ -1,0 +1,9 @@
+# Maven and IDE artifacts
+target/
+.idea/
+.classpath
+.project
+.settings/
+
+# OS files
+.DS_Store
