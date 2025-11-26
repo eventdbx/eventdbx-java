@@ -57,11 +57,11 @@ jobs:
           distribution: temurin
           java-version: 17
           cache: maven
-          server-id: ossrh
-          server-username: OSSRH_USERNAME
-          server-password: OSSRH_PASSWORD
+          server-id: central
+          server-username: ${{ secrets.CENTRAL_USERNAME }}
+          server-password: ${{ secrets.CENTRAL_PASSWORD }}
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
-          gpg-passphrase: GPG_PASSPHRASE
+          gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}
 
       - name: Compute version
         run: |
@@ -94,7 +94,7 @@ jobs:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
           SNOWNOISE_LIB_PATH: ${{ github.workspace }}/native/snownoise/target/release
         run: |
-          mvn -B -DskipTests -DperformRelease -Dgpg.passphrase="${GPG_PASSPHRASE}" -Dcentral.username="${CENTRAL_USERNAME}" -Dcentral.password="${CENTRAL_PASSWORD}" deploy
+          mvn -B -DskipTests -DperformRelease -Dgpg.passphrase="${GPG_PASSPHRASE}" deploy
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v1
