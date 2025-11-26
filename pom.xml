@@ -11,6 +11,24 @@
   <url>https://docs.eventdbx.com/client-sdks/java</url>
   <packaging>jar</packaging>
 
+  <developers>
+    <developer>
+      <id>eventdbx</id>
+      <name>Patrick Thach</name>
+      <email>thachp@gmail.com</email>
+      <url>https://eventdbx.com</url>
+      <organization>EventDBX</organization>
+      <organizationUrl>https://eventdbx.com</organizationUrl>
+    </developer>
+  </developers>
+
+  <scm>
+    <connection>scm:git:https://github.com/eventdbx/eventdbx-java.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/eventdbx/eventdbx-java.git</developerConnection>
+    <url>https://github.com/eventdbx/eventdbx-java</url>
+    <tag>HEAD</tag>
+  </scm>
+
   <licenses>
     <license>
       <name>MIT License</name>
