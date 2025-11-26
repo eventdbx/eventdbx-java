@@ -89,12 +89,12 @@ jobs:
 
       - name: Build and deploy
         env:
-          OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-          OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+          CENTRAL_USERNAME: ${{ secrets.CENTRAL_USERNAME }}
+          CENTRAL_PASSWORD: ${{ secrets.CENTRAL_PASSWORD }}
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
           SNOWNOISE_LIB_PATH: ${{ github.workspace }}/native/snownoise/target/release
         run: |
-          mvn -B -DskipTests -DperformRelease deploy
+          mvn -B -DskipTests -DperformRelease -Dgpg.passphrase="${GPG_PASSPHRASE}" -Dcentral.username="${CENTRAL_USERNAME}" -Dcentral.password="${CENTRAL_PASSWORD}" deploy
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v1
