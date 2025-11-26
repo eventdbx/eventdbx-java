@@ -1772,6 +1772,7 @@ public final class ControlSchemas {
         return builder.asReader();
       }
     }
+    /** Factory for creating AppendEventRequest readers/builders. */
     public static final Factory factory = new Factory();
     public static final org.capnproto.StructList.Factory<Builder,Reader> listFactory =
       new org.capnproto.StructList.Factory<Builder, Reader>(factory);
@@ -5802,4 +5803,3 @@ public static final org.capnproto.SegmentReader b_d2c07d9608094b97 =
    "\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000" + "");
 }
 }
-
