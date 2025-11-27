@@ -65,13 +65,28 @@ jobs:
 
       - name: Compute version
         run: |
-          VERSION=$(mvn -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)
+          BASE_VERSION=$(mvn -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)
+          CANDIDATE_VERSION="${BASE_VERSION}"
+
+          # If the computed tag already exists on origin, bump the patch until we find a free version.
+          while git ls-remote --tags origin "refs/tags/v${CANDIDATE_VERSION}" | grep -q .; do
+            IFS='.' read -r MAJOR MINOR PATCH <<< "${CANDIDATE_VERSION}"
+            PATCH=$((PATCH + 1))
+            CANDIDATE_VERSION="${MAJOR}.${MINOR}.${PATCH}"
+          done
+
+          # If we bumped, update the project version for this build (no backup pom).
+          if [ "${CANDIDATE_VERSION}" != "${BASE_VERSION}" ]; then
+            mvn -B versions:set -DnewVersion="${CANDIDATE_VERSION}" -DgenerateBackupPoms=false
+          fi
+
           if [ "${GITHUB_REF_TYPE}" = "tag" ]; then
             TAG_NAME="${GITHUB_REF_NAME}"
           else
-            TAG_NAME="v${VERSION}"
+            TAG_NAME="v${CANDIDATE_VERSION}"
           fi
-          echo "RELEASE_VERSION=${VERSION}" >> $GITHUB_ENV
+
+          echo "RELEASE_VERSION=${CANDIDATE_VERSION}" >> $GITHUB_ENV
           echo "RELEASE_TAG=${TAG_NAME}" >> $GITHUB_ENV
 
       - name: Create tag (main/workflow_dispatch)
