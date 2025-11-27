@@ -92,9 +92,9 @@ jobs:
           CENTRAL_USERNAME: ${{ secrets.CENTRAL_USERNAME }}
           CENTRAL_PASSWORD: ${{ secrets.CENTRAL_PASSWORD }}
           SNOWNOISE_LIB_PATH: ${{ github.workspace }}/native/snownoise/target/release
-          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: |
-          mvn -B -DskipTests -DperformRelease -Dgpg.passphrase="${GPG_PASSPHRASE}" deploy
+          mvn -B -DskipTests -DperformRelease deploy
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v1
