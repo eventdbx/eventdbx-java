@@ -2,6 +2,7 @@ name: CI & Release
 
 permissions:
   contents: write
+  packages: write
 
 on:
   pull_request:
@@ -57,9 +58,9 @@ jobs:
           distribution: temurin
           java-version: 17
           cache: maven
-          server-id: central
-          server-username: ${{ secrets.CENTRAL_USERNAME }}
-          server-password: ${{ secrets.CENTRAL_PASSWORD }}
+          server-id: github
+          server-username: ${{ github.actor }}
+          server-password: ${{ secrets.GITHUB_TOKEN }}
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
           gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}
 
@@ -102,20 +103,8 @@ jobs:
       - name: Build native snownoise
         run: cargo build --release --manifest-path native/snownoise/Cargo.toml
 
-      - name: Check Central creds present
-        env:
-          CENTRAL_USERNAME: ${{ secrets.CENTRAL_USERNAME }}
-          CENTRAL_PASSWORD: ${{ secrets.CENTRAL_PASSWORD }}
-        run: |
-          if [ -z "${CENTRAL_USERNAME}" ] || [ -z "${CENTRAL_PASSWORD}" ]; then
-            echo "Central credentials are missing; set CENTRAL_USERNAME and CENTRAL_PASSWORD secrets."
-            exit 1
-          fi
-
       - name: Build and deploy
         env:
-          CENTRAL_USERNAME: ${{ secrets.CENTRAL_USERNAME }}
-          CENTRAL_PASSWORD: ${{ secrets.CENTRAL_PASSWORD }}
           SNOWNOISE_LIB_PATH: ${{ github.workspace }}/native/snownoise/target/release
           MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: |
