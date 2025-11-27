@@ -58,9 +58,9 @@ jobs:
           distribution: temurin
           java-version: 17
           cache: maven
-          server-id: github
-          server-username: GITHUB_ACTOR
-          server-password: GITHUB_TOKEN
+          server-id: central
+          server-username: ${{ secrets.CENTRAL_USERNAME }}
+          server-password: ${{ secrets.CENTRAL_PASSWORD }}
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
           gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}
         env:
@@ -111,7 +111,7 @@ jobs:
           MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          mvn -B -DskipTests -DperformRelease deploy -e
+          mvn -B -DskipTests -DperformRelease -Pcentral deploy -e
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v1
