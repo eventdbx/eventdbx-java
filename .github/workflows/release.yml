@@ -109,7 +109,7 @@ jobs:
           SNOWNOISE_LIB_PATH: ${{ github.workspace }}/native/snownoise/target/release
           MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: |
-          mvn -B -DskipTests -DperformRelease deploy -e -X
+          mvn -B -DskipTests -DperformRelease deploy -e
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v1
