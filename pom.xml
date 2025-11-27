@@ -44,6 +44,7 @@
     <junit.version>5.10.2</junit.version>
     <gpg.executable>gpg</gpg.executable>
     <gpg.useagent>true</gpg.useagent>
+    <maven.publish.timeout>600000</maven.publish.timeout>
   </properties>
 
   <dependencies>
