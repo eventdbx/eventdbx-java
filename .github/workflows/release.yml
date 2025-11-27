@@ -102,6 +102,16 @@ jobs:
       - name: Build native snownoise
         run: cargo build --release --manifest-path native/snownoise/Cargo.toml
 
+      - name: Check Central creds present
+        env:
+          CENTRAL_USERNAME: ${{ secrets.CENTRAL_USERNAME }}
+          CENTRAL_PASSWORD: ${{ secrets.CENTRAL_PASSWORD }}
+        run: |
+          if [ -z "${CENTRAL_USERNAME}" ] || [ -z "${CENTRAL_PASSWORD}" ]; then
+            echo "Central credentials are missing; set CENTRAL_USERNAME and CENTRAL_PASSWORD secrets."
+            exit 1
+          fi
+
       - name: Build and deploy
         env:
           CENTRAL_USERNAME: ${{ secrets.CENTRAL_USERNAME }}
